@@ -11,6 +11,15 @@
 ${doctor.specialization}<br><br>
 <b>${doctor.phoneNumber}</b><br>
 <hr>
+<h4>Години прийому</h4>
+<#list doctor.schedule as admission>
+    <div>
+        <p>
+            ${admission.time}<input type="radio" id="func2" name="time" value="${admission.id}"/>
+        </p>
+    </div>
+</#list>
+<hr>
 <form action="/doctor/remove/${doctor.id}" method="post">
     <input type="submit" value="Видалити">
 </form>

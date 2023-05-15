@@ -4,11 +4,12 @@
     <title>My Polyclinic</title>
 </head>
 <body>
-<h1>Polyclinic | <a href="/login">Вхід</a></h1><hr>
+<h1>Polyclinic | <a href="/login">Вхід</a></h1>
 <form action="/logout" method="post">
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Вийти">
 </form>
+<hr>
 <h3>Найкращі спеціалісти!</h3>
 <form action="/" method="get">
     Знайдіть собі спеціаліста: <input type="text" name="specialization"><br>
@@ -30,6 +31,7 @@
     Спеціалізація: <input type="text" name="specialization"/><br><br>
     Номер телефону: <input type="text" name="phoneNumber"/><br><br>
     Фотографія: <input type="file" name="file"/><br><br>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Додати">
 </form>
 

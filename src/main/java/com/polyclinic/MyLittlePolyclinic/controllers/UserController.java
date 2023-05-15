@@ -32,4 +32,8 @@ public class UserController {
         userService.createUser(user);
         return "redirect:/login";
     }
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
 }

@@ -13,6 +13,7 @@
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Вхід">
 </form>
+<br>
 Не маєш акаунту? <a href="/registration">Зареєструватись</a>
 </body>
 </html>

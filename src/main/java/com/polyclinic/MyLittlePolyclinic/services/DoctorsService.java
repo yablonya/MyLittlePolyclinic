@@ -28,6 +28,7 @@ public class DoctorsService {
             image = toImageEntity(file);
             doctor.addImageToDoctor(image);
         }
+        doctor.addSchedule();
 
         log.info("Adding new Doctor. NameSurname: {}; PhoneNumber: {}", doctor.getNameSurname(), doctor.getPhoneNumber());
         doctorRepository.save(doctor);
