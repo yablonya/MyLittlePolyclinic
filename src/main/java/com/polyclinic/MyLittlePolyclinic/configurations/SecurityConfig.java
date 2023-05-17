@@ -1,6 +1,5 @@
 package com.polyclinic.MyLittlePolyclinic.configurations;
 
-import com.polyclinic.MyLittlePolyclinic.services.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
@@ -24,7 +23,7 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/", "/doctor/**", "/image/**", "/doctor/add", "/doctor/remove/**", "/registration").permitAll()
+                        .requestMatchers("/", "/doctor/**", "/image/**", "/login", "/registration").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

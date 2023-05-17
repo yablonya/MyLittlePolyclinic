@@ -50,4 +50,7 @@ public class DoctorsService {
     public Doctor getDoctorById(Long id) {
         return doctorRepository.findById(id).orElse(null);
     }
+    public List<Doctor> doctorList() {
+        return doctorRepository.findAll();
+    }
 }

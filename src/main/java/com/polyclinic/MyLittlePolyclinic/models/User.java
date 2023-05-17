@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user")
     private List<TimeForAdmission> admissions = new ArrayList<>();
     private LocalDateTime dateOfCreated;
     @PrePersist
@@ -43,6 +43,10 @@ public class User implements UserDetails {
     }
 
     // security
+
+    public boolean isAdmin() {
+        return roles.contains(Role.ROLE_ADMIN);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

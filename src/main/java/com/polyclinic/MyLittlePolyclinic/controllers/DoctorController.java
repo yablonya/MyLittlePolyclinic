@@ -2,6 +2,7 @@ package com.polyclinic.MyLittlePolyclinic.controllers;
 
 import com.polyclinic.MyLittlePolyclinic.models.Doctor;
 import com.polyclinic.MyLittlePolyclinic.services.DoctorsService;
+import com.polyclinic.MyLittlePolyclinic.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,19 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
 public class DoctorController {
     private final DoctorsService doctorsService;
-
-    @GetMapping("/")
-    public String home(@RequestParam(name = "specialization", required = false) String specialization, Model model) {
-        model.addAttribute("doctors", doctorsService.listDoctors(specialization));
-        return "home";
-    }
 
     @GetMapping("/doctor/{id}")
     public String doctorSchedule(@PathVariable Long id, Model model) {
@@ -35,12 +30,12 @@ public class DoctorController {
     @PostMapping("/doctor/add")
     public String addDoctor(@RequestParam("file") MultipartFile file, Doctor doctor) throws IOException {
         doctorsService.addDoctor(doctor, file);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @PostMapping("/doctor/remove/{id}")
     public String removeDoctor(@PathVariable Long id) {
         doctorsService.removeDoctor(id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 }

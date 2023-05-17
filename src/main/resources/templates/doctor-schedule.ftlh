@@ -11,17 +11,25 @@
 ${doctor.specialization}<br><br>
 <b>${doctor.phoneNumber}</b><br>
 <hr>
-<h4>Години прийому</h4>
-<#list doctor.schedule as admission>
-    <div>
-        <p>
-            ${admission.time}<input type="radio" id="func2" name="time" value="${admission.id}"/>
-        </p>
-    </div>
-</#list>
+<h3>Години прийому</h3>
 <hr>
-<form action="/doctor/remove/${doctor.id}" method="post">
-    <input type="submit" value="Видалити">
+<h4>Сьогодні</h4>
+<form action="/user/add-admission" method="post">
+    <#list doctor.getSchedule() as admission>
+        <div>
+            <p>
+                <#if admission.user??>
+                    <#continue>
+                </#if>
+
+                ${admission.time}
+                ${admission.id}<input type="radio" name="time" id="admission" value="${admission.id}"/>
+            </p>
+        </div>
+    </#list>
+
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <input type="submit" value="Записатись">
 </form>
 </body>
 </html>

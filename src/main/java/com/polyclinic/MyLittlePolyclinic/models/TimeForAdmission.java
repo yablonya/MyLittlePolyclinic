@@ -17,8 +17,10 @@ public class TimeForAdmission {
     private Long id;
     @Column(name = "time")
     private String time;
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 }

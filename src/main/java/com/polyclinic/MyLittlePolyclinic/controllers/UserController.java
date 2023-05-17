@@ -6,7 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,8 +36,22 @@ public class UserController {
         userService.createUser(user);
         return "redirect:/login";
     }
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello";
+    @GetMapping("/user-account")
+    public String userAccount(Principal principal, Model model) {
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
+        return "user-account";
+    }
+
+    @PostMapping("/user/add-admission")
+    public String makeAdmission(@RequestParam("time") String admission, Principal principal, Model model) {
+        Long id = Long.parseLong(admission);
+        userService.addAdmissionToUser(principal, id);
+        return "success-admission";
+    }
+
+    @PostMapping("/user/remove-admission/{id}")
+    public String removeAdmission(@PathVariable("id") Long id, Principal principal) {
+        userService.removeAdmissionFromUser(principal, id);
+        return "redirect:/user-account";
     }
 }
