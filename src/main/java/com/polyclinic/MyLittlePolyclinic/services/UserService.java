@@ -1,5 +1,6 @@
 package com.polyclinic.MyLittlePolyclinic.services;
 
+import com.polyclinic.MyLittlePolyclinic.models.Doctor;
 import com.polyclinic.MyLittlePolyclinic.models.TimeForAdmission;
 import com.polyclinic.MyLittlePolyclinic.models.User;
 import com.polyclinic.MyLittlePolyclinic.models.enums.Role;
@@ -40,6 +41,9 @@ public class UserService {
     public User getUserByPrincipal(Principal principal) {
         if (principal == null) return new User();
         return userRepository.findByEmail(principal.getName());
+    }
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     public void banUser(Long id) {

@@ -15,7 +15,7 @@ ${doctor.specialization}<br><br>
 <hr>
 <h4>Сьогодні</h4>
 <form action="/user/add-admission" method="post">
-    <#list doctor.getSchedule() as admission>
+    <#list schedule as admission>
         <div>
             <p>
                 <#if admission.user??>
@@ -23,7 +23,7 @@ ${doctor.specialization}<br><br>
                 </#if>
 
                 ${admission.time}
-                ${admission.id}<input type="radio" name="time" id="admission" value="${admission.id}"/>
+                <input type="radio" name="time" id="admission" value="${admission.id}"/>
             </p>
         </div>
     </#list>
@@ -31,5 +31,7 @@ ${doctor.specialization}<br><br>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Записатись">
 </form>
+<hr>
+<a href="/">На головну</a>
 </body>
 </html>

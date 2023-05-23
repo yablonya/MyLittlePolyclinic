@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/user/add-admission")
-    public String makeAdmission(@RequestParam("time") String admission, Principal principal, Model model) {
+    public String addAdmission(@RequestParam("time") String admission, Principal principal) {
         Long id = Long.parseLong(admission);
         userService.addAdmissionToUser(principal, id);
         return "success-admission";

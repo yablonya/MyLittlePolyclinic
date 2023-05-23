@@ -2,7 +2,6 @@ package com.polyclinic.MyLittlePolyclinic.controllers;
 
 import com.polyclinic.MyLittlePolyclinic.models.Doctor;
 import com.polyclinic.MyLittlePolyclinic.services.DoctorsService;
-import com.polyclinic.MyLittlePolyclinic.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,6 +21,7 @@ public class DoctorController {
     public String doctorSchedule(@PathVariable Long id, Model model) {
         Doctor doctor = doctorsService.getDoctorById(id);
         model.addAttribute("doctor", doctor);
+        model.addAttribute("schedule", doctorsService.sortOutputSchedule(doctor.getSchedule()));
         model.addAttribute("image", doctor.getPhoto());
         return "doctor-schedule";
     }
@@ -37,5 +36,26 @@ public class DoctorController {
     public String removeDoctor(@PathVariable Long id) {
         doctorsService.removeDoctor(id);
         return "redirect:/admin";
+    }
+
+    @GetMapping("/doctor/edit/{id}")
+    public String doctorEdit(@PathVariable Long id, Model model) {
+        Doctor doctor = doctorsService.getDoctorById(id);
+        model.addAttribute("doctor", doctor);
+        model.addAttribute("schedule", doctorsService.sortOutputSchedule(doctor.getSchedule()));
+        model.addAttribute("image", doctor.getPhoto());
+        return "doctor-edit";
+    }
+    @PostMapping("/doctor/{id}/add-hour")
+    public String addHour(@PathVariable Long id, @RequestParam(name = "hour") String hour) {
+        doctorsService.addTimeForAdmission(id, hour);
+        return "redirect:/doctor/edit/{id}";
+    }
+
+    @PostMapping("/doctor/remove-hour/{id}")
+    public String removeHour(@PathVariable Long id, @RequestParam("time") String hour) {
+        Long hour_id = Long.parseLong(hour);
+        doctorsService.removeTimeForAdmission(id, hour_id);
+        return "redirect:/doctor/edit/{id}";
     }
 }
