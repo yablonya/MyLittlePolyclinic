@@ -52,10 +52,9 @@ public class DoctorController {
         return "redirect:/doctor/edit/{id}";
     }
 
-    @PostMapping("/doctor/remove-hour/{id}")
-    public String removeHour(@PathVariable Long id, @RequestParam("time") String hour) {
-        Long hour_id = Long.parseLong(hour);
-        doctorsService.removeTimeForAdmission(id, hour_id);
-        return "redirect:/doctor/edit/{id}";
+    @PostMapping("/doctor/{doctor_id}/remove-hour/{admission_id}")
+    public String removeHour(@PathVariable Long doctor_id, @PathVariable Long admission_id) {
+        doctorsService.removeTimeForAdmission(admission_id);
+        return "redirect:/doctor/edit/{doctor_id}";
     }
 }

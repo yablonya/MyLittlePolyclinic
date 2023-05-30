@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -74,14 +72,13 @@ public class DoctorsService {
         }
     }
 
-    public void removeTimeForAdmission(Long doctor_id, Long admission_id) {
-//        Doctor doctor = getDoctorById(doctor_id);
-//        TimeForAdmission time = admissionRepository.findById(admission_id).orElse(null);
-        admissionRepository.deleteById(admission_id);
-        log.info("Delete admission. Id: {}", admission_id);
-//        if (doctor != null && time != null) {
-//
-//        }
+    public void removeTimeForAdmission(Long admission_id) {
+        TimeForAdmission time = admissionRepository.findById(admission_id).orElse(null);
+
+        if (time != null) {
+            admissionRepository.deleteById(admission_id);
+            log.info("Delete admission. Id: {}", admission_id);
+        }
     }
 
     public List<TimeForAdmission> sortOutputSchedule(List<TimeForAdmission> schedule) {

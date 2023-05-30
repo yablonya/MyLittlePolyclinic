@@ -1,6 +1,5 @@
 package com.polyclinic.MyLittlePolyclinic.services;
 
-import com.polyclinic.MyLittlePolyclinic.models.Doctor;
 import com.polyclinic.MyLittlePolyclinic.models.TimeForAdmission;
 import com.polyclinic.MyLittlePolyclinic.models.User;
 import com.polyclinic.MyLittlePolyclinic.models.enums.Role;
@@ -26,7 +25,7 @@ public class UserService {
         String email = user.getEmail();
         if (userRepository.findByEmail(email) != null) return false;
         user.setActive(true);
-        user.getRoles().add(Role.ROLE_ADMIN);
+        user.getRoles().add(Role.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         log.info("Saving new User with email: {}", email);
         userRepository.save(user);
