@@ -28,10 +28,10 @@
                     </form>
                 </th>
             </tr>
+        <#else>
+            <h3>Лікарів немає</h3>
         </#list>
     </table>
-<#else>
-    <h3>Лікарів немає</h3>
 </#if>
 <hr>
 <form action="/admin" method="get">
@@ -76,6 +76,8 @@
                 </th>
                 <th><a href="/admin/user/${user.id}">Детальніше</a></th>
             </tr>
+        <#else>
+            <h3>Такого користувача немає</h3>
         </#list>
     </table>
 </#if>

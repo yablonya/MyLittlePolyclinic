@@ -1,6 +1,7 @@
 package com.polyclinic.MyLittlePolyclinic.controllers;
 
 import com.polyclinic.MyLittlePolyclinic.models.User;
+import com.polyclinic.MyLittlePolyclinic.services.DoctorsService;
 import com.polyclinic.MyLittlePolyclinic.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final DoctorsService doctorsService;
 
     @GetMapping("/login")
     public String login() {
@@ -39,6 +41,7 @@ public class UserController {
     @GetMapping("/user-account")
     public String userAccount(Principal principal, Model model) {
         model.addAttribute("user", userService.getUserByPrincipal(principal));
+        model.addAttribute("doctors", doctorsService.listDoctors(null));
         return "user-account";
     }
 
